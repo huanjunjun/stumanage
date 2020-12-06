@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选课管理系统</title>
+<link rel="icon"
+	href="https://uis.nwpu.edu.cn/cas/themes/nwpu/favicon.ico"
+	type="image/x-icon">
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="./js/jquery-2.1.4.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.post("/stumanage/studentmycourse", {}, function(data) {
+			var courses = eval(data);
+			$("#table").html("<tr class='active'><td>课程号</td><td>课程名</td><td>退课</td></tr>");
+			for (var i = 0; i < courses.length; i++) {
+				var tr = $("<tr></tr>");
+				var td1 = $("<td></td>");
+				td1.append(courses[i].cid);
+				var td2 = $("<td></td>");
+				td2.append(courses[i].cname);
+				var td3 = $("<td></td>");
+				a = $("<a href='javascript:void(0)'>退课</a>")
+				a.click(function() {
+					var parent = $(this).parent("td");
+					var cname = parent.prev("td");
+					var cid = cname.prev("td");
+					$.post("/stumanage/studentdeletemycou", {
+						"cid" : cid.html()
+					}, function(data) {
+						alert(data);
+					})
+				});
+				td3.append(a);
+				tr.append(td1).append(td2).append(td3);
+				$("#table").append(tr);
+			}
+		})
+		$("#hasselected").click(function() {
+			$(this).attr({
+				class : "active"
+			});
+			$("#select").attr({
+				class : ""
+			});
+			$.post("/stumanage/studentmycourse", {}, function(data) {
+				var courses = eval(data);
+				$("#table").html("<tr class='active'><td>课程号</td><td>课程名</td><td>退课</td></tr>");
+				for (var i = 0; i < courses.length; i++) {
+					var tr = $("<tr></tr>");
+					var td1 = $("<td></td>");
+					td1.append(courses[i].cid);
+					var td2 = $("<td></td>");
+					td2.append(courses[i].cname);
+					var td3 = $("<td></td>");
+					a = $("<a href='javascript:void(0)'>退课</a>")
+					a.click(function() {
+						var parent = $(this).parent("td");
+						var cname = parent.prev("td");
+						var cid = cname.prev("td");
+						$.post("/stumanage/studentdeletemycou", {
+							"cid" : cid.html()
+						}, function(data) {
+							alert(data);
+						})
+					});
+					td3.append(a);
+					tr.append(td1).append(td2).append(td3);
+					$("#table").append(tr);
+				}
+			})
+		})
+		$("#select").click(function() {
+			$(this).attr({
+				class : "active"
+			});
+			$("#hasselected").attr({
+				class : ""
+			});
+			$.post("/stumanage/studentshowallcou",{},function(data){
+			        var courses = eval(data);
+					$("#table").html("<tr class='active'><td>课程号</td><td>课程名</td><td>选课</td></tr>");
+					for (var i = 0; i < courses.length; i++) {
+						var tr = $("<tr></tr>");
+						var td1 = $("<td></td>");
+						td1.append(courses[i].cid);
+						var td2 = $("<td></td>");
+						td2.append(courses[i].cname);
+						var td3 = $("<td></td>");
+						a = $("<a href='javascript:void(0)'>选课</a>")
+						a.click(function() {
+							var parent = $(this).parent("td");
+							var cname = parent.prev("td");
+							var cid = cname.prev("td");
+							$.post("/stumanage/studentchoosecou", {
+								"cid" : cid.html()
+							}, function(data) {
+								alert(data);
+							})
+						});
+						td3.append(a);
+						tr.append(td1).append(td2).append(td3);
+						$("#table").append(tr);
+					}
+			},"json")
+		})
+	})
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="">学生选课管理系统</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="signin_student.html">学生登录</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" class="navbar-nav">当前用户:</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid" style="border: aqua 1px ; ">
+		<div class="col-lg-2"
+			style="border:turquoise ;background-color: rgb(248, 248, 248);">
+			<div class="list-group">
+				<a href="#" class="list-group-item active"> 操作列表 </a> <a
+					href="studentwelcome.html" class="list-group-item">首页</a> <a
+					href="studentmymessage.html" class="list-group-item">我的信息</a> <a
+					href="studentselectcou.html" class="list-group-item">选课通道</a> <a
+					href="studentmycou.html" class="list-group-item">我的课程成绩</a> <a
+					href="studentmodifymymessage.html" class="list-group-item">修改个人信息</a>
+				<a href="#" class="list-group-item">设置</a> <a href="#"
+					class="list-group-item">保留</a>
+			</div>
+			<div style="height:30pc"></div>
+		</div>
+		<div class="col-lg-10">
+			<div class="row">
+				<nav class="navbar">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">选课通道</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<ul class="nav nav-tabs">
+				<li role="presentation" id="hasselected" class="active"><a
+					href="#">已选课程</a></li>
+				<li role="presentation" id="select"><a href="#">选课</a></li>
+			</ul>
+			<div
+				style="background-color:rgb(248, 248, 248);height: 42pc; overflow:auto">
+				<table id="table" class="table table-bordered">
+					<tr class="active">
+						<td>课程号</td>
+						<td>课程名</td>
+						<td><a href="#">退课</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

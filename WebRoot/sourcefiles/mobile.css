@@ -1,0 +1,83 @@
+
+  body {
+    background: #eee;
+    font-family: "微软雅黑";
+    line-height: 25px;
+  }
+  .mobile-login .logo-img {
+    margin: 40px auto 20px;
+    width: 160px;
+    height: 160px;
+    
+  }
+  .mobile-login .logo-img img {
+      width: 160px;
+      height: 160px;
+    }
+  .mobile-login .login-form {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .mobile-login .login-form .el-input__inner {
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+  }
+  .mobile-login .login-form .el-input__icon {
+    font-size: 16px;
+  }
+  .mobile-login .login-btn {
+    margin: 20px 0;
+    width: 100%;
+    background: #2468b1;
+    border-color: #2468b1;
+  }
+  .mobile-login .login-state {
+    overflow: hidden;
+    color: #969798;
+    font-size: 14px;
+  }
+  .mobile-login .login-state a {
+    color: #969798;
+  }
+  .mobile-login .login-state>div:nth-child(1) {
+    float: left;
+  }
+  .mobile-login .login-state>div:nth-child(2) {
+    float: right;
+  }
+  .mobile-login .divider-wrap {
+    padding: 0 20px;
+    color: #969798;
+    margin-top: 50px;
+  }
+  .mobile-login .divider-wrap .el-divider__text {
+    color: #969798;
+    background:#eee ;
+  }
+  .mobile-login .el-divider {
+    background-color: #bdbebf;
+  }
+  .mobile-login .login-icon {
+    font-size: 40px;
+    color: #969798;
+    text-align: center;
+  }
+  .mobile-login .login-icon a:last-child {
+    margin-right: 0;
+  }
+  .mobile-login .login-icon a {
+    color: #969798;
+    margin-right: 30px;
+  }
+  
+  .mobile-login .type-right {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #969798;
+    text-align: center;
+    padding: 0 50px;
+  }
+  .mobile-login .type-right p {
+    margin: 8px 0;
+  }

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选课管理系统</title>
+<link rel="icon"
+	href="https://uis.nwpu.edu.cn/cas/themes/nwpu/favicon.ico"
+	type="image/x-icon">
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../chajian/dialog.css" />
+<script src="./js/jquery-2.1.4.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#showall").click(function() {
+			$("#table").html("");
+			$.post("/stumanage/managerstu1", function(data) {
+				var student = eval(data);
+				for (var i = 0; i < student.length; i++) {
+					var tr = $("<tr></tr>");
+					var td1 = $("<td></td>");
+					td1.append(student[i].sid);
+					var td2 = $("<td></td>");
+					td2.append(student[i].sname);
+					var td3 = $("<td></td>");
+					td3.append(student[i].ssex);
+					var td4 = $("<td></td>");
+					td4.append(student[i].sage);
+					var td5 = $("<td></td>");
+					td5.append(student[i].smajor);
+					var td6 = $("<td></td>");
+					td6.append(student[i].spassword);
+					var td7 = $("<td></td>");
+					var a = $("<a   href='javascript:void(0)'>删除</a>");
+					td7.append(a);
+					a.click(function() {
+						var parent1 = $(this).parent("td");
+						var spassword = parent1.prev("td");
+						var smajor = spassword.prev("td");
+						var sage = smajor.prev("td");
+						var ssex = sage.prev("td");
+						var sname = ssex.prev("td");
+						var sid = sname.prev("td");
+						$.post("/stumanage/managerstudelete", {
+							"deletebyid" : sid.html()
+						}, function(data) {
+							alert(data);
+						});
+					})
+					tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7)
+					$("#table").append(tr);
+				}
+               alert("共"+student.length+"条记录。");
+			}, "json")
+		})
+
+		$("#idbutton").click(function() {
+			var id = $("#showonebyid").val();
+			$("#table").html("");
+			$.post("/stumanage/managerstu2", {
+				"stuid" : id
+			}, function(data) {
+				var student = eval(data);
+				var tr = $("<tr></tr>");
+				var td1 = $("<td></td>");
+				td1.append(student.sid);
+				var td2 = $("<td></td>");
+				td2.append(student.sname);
+				var td3 = $("<td></td>");
+				td3.append(student.ssex);
+				var td4 = $("<td></td>");
+				td4.append(student.sage);
+				var td5 = $("<td></td>");
+				td5.append(student.smajor);
+				var td6 = $("<td></td>");
+				td6.append(student.spassword);
+				var td7 = $("<td></td>");
+				var a = $("<a   href='javascript:void(0)'>删除</a>");
+				td7.append(a);
+				a.click(function() {
+					var parent1 = $(this).parent("td");
+					var spassword = parent1.prev("td");
+					var smajor = spassword.prev("td");
+					var sage = smajor.prev("td");
+					var ssex = sage.prev("td");
+					var sname = ssex.prev("td");
+					var sid = sname.prev("td");
+					$.post("/stumanage/managerstudelete", {
+						"deletebyid" : sid.html()
+					}, function(data) {
+						alert(data);
+					});
+				})
+				tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7)
+				$("#table").append(tr);
+			}, "json")
+		})
+		$("#namebutton").click(function() {
+			var name = $("#showonebyname").val();
+			$("#table").html("");
+			$.post("/stumanage/managerstu3", {
+				"stuname" : name
+			}, function(data) {
+				var student = eval(data);
+				for (var i = 0; i < student.length; i++) {
+					var tr = $("<tr></tr>");
+					var td1 = $("<td></td>");
+					td1.append(student[i].sid);
+					var td2 = $("<td></td>");
+					td2.append(student[i].sname);
+					var td3 = $("<td></td>");
+					td3.append(student[i].ssex);
+					var td4 = $("<td></td>");
+					td4.append(student[i].sage);
+					var td5 = $("<td></td>");
+					td5.append(student[i].smajor);
+					var td6 = $("<td></td>");
+					td6.append(student[i].spassword);
+					var td7 = $("<td></td>");
+					var a = $("<a   href='javascript:void(0)'>删除</a>");
+					td7.append(a);
+					a.click(function() {
+						var parent1 = $(this).parent("td");
+						var spassword = parent1.prev("td");
+						var smajor = spassword.prev("td");
+						var sage = smajor.prev("td");
+						var ssex = sage.prev("td");
+						var sname = ssex.prev("td");
+						var sid = sname.prev("td");
+						$.post("/stumanage/managerstudelete", {
+							"deletebyid" : sid.html()
+						}, function(data) {
+							alert(data);
+						});
+					})
+					tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7)
+					$("#table").append(tr);
+				}
+                alert("共"+student.length+"条记录。");
+			}, "json")
+		})
+	})
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="">学生选课管理系统</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="signin_student.html">管理员登录</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" class="navbar-nav">当前用户:</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid" style="border: aqua 1px; ">
+		<div class="col-lg-2"
+			style="border:turquoise ;background-color: rgb(248, 248, 248);">
+			<div class="list-group">
+				<a href="#" class="list-group-item active"> 操作列表 </a> <a
+					href="managerwelcome.html" class="list-group-item">首页</a> <a
+					href="manageradmin.html" class="list-group-item">管理员信息</a> <a
+					href="managerstu.html" class="list-group-item">学生查询</a> <a
+					href="managercou.html" class="list-group-item">查询某课内学生</a> <a
+					href="manageradd.html" class="list-group-item">添加学生</a> <a href="#"
+					class="list-group-item">设置</a> <a href="#" class="list-group-item">保留</a>
+			</div>
+			<div style="height:30pc"></div>
+		</div>
+		<div class="col-lg-10" style="border: aquamarine ;height:60pc ;">
+			<div class="row">
+				<nav class="navbar">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">学生查询</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div style="height: 5pc;">
+				<div style="border: aquamarine  ;height:5pc ;">
+					<!-- 操作 -->
+					<div class="col-lg-4">
+						<input type="button" id="showall" value="显示所有学生">
+					</div>
+					<div class="col-lg-4">
+						<input type="text" id="showonebyid" name="id"> <input
+							type="button" id="idbutton" value="学号查找">
+					</div>
+					<div class="col-lg-4">
+						<input type="text" id="showonebyname" name="name"> <input
+							type="button" id="namebutton" value="姓名查找">
+					</div>
+				</div>
+			</div>
+			<table class="table table-bordered">
+				<tr class="active">
+					<td>学号</td>
+					<td>姓名</td>
+					<td>性别</td>
+					<td>年龄</td>
+					<td>专业</td>
+					<td>密码</td>
+					<td>删除</td>
+				</tr>
+			</table>
+			<div style="background-color:rgb(248, 248, 248);height: 42pc; overflow:auto">
+				<table id="table" class="table table-bordered">
+					
+					<tr class="active">
+						<td>学号</td>
+						<td>姓名</td>
+						<td>性别</td>
+						<td>年龄</td>
+						<td>专业</td>
+						<td>密码</td>
+						<td><a href="#">删除</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</body>
+</html>

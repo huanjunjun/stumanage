@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>选课管理系统</title>
+    <link rel="icon"
+	href="https://uis.nwpu.edu.cn/cas/themes/nwpu/favicon.ico"
+	type="image/x-icon">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./js/jquery-2.1.4.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+          $(function(){
+               $.post("/stumanage/studentmymessage",{},function(data){
+                    var mymessage=eval(data);
+                    $("#id").html(mymessage.sid);
+                    $("#name").html(mymessage.sname);
+                    $("#sex").html(mymessage.ssex);
+                    $("#age").html(mymessage.sage);
+                    $("#major").html(mymessage.smajor);
+               },"json")
+          })
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">学生选课管理系统</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="signin_student.html">学生登录</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="navbar-nav">当前用户:</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid" style="border: aqua 1px ; ">
+        <div class="col-lg-2" style="border:turquoise ;background-color: rgb(248, 248, 248);">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    操作列表
+                </a>
+                <a href="studentwelcome.html" class="list-group-item">首页</a>
+                <a href="studentmymessage.html" class="list-group-item">我的信息</a>
+                <a href="studentselectcou.html" class="list-group-item">选课通道</a>
+                <a href="studentmycou.html" class="list-group-item">我的课程成绩</a>
+                <a href="studentmodifymymessage.html" class="list-group-item">修改个人信息</a>
+                <a href="#" class="list-group-item">设置</a>
+                <a href="#" class="list-group-item">保留</a>
+            </div>
+            <div style="height:30pc">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="row">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">我的信息</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div style="height: 5pc;">
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-6" style="border: aquamarine;">
+                <table class="table table-bordered">
+                    <tr class="active">
+                        <h2> 我的信息  </h2>
+                     </tr>
+                    <tr class="active">
+                        <td>学号:</td>
+                        <td id="id">####</td>
+                    </tr>
+                    <tr class="active">
+                        <td>姓名：</td>
+                        <td id="name">####</td>
+                    </tr>
+                    <tr class="active">
+                        <td>性别：</td>
+                        <td id="sex">####</td>
+                    </tr>
+                    <tr class="active">
+                        <td>年龄：</td>
+                        <td id="age">####</td>
+                    </tr>
+                    <tr class="active">
+                        <td>专业：</td>
+                        <td id="major">####</td>
+                    </tr>
+                  </table>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
