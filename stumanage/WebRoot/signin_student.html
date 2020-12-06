@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>学生选课系统 | 身份认证 | 登录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="https://uis.nwpu.edu.cn/cas/themes/nwpu/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="./sourcefiles/index.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="./sourcefiles/jsencrypt.min.js.下载" type="text/javascript"></script>
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./sourcefiles/style-nwpu.css">
+  <link rel="stylesheet" type="text/css" href="./sourcefiles/mobile.css">
+  <script type="text/javascript">
+        $(function(){
+     $("#sid").blur(function(){
+           var sid=$(this).val();
+           if(sid>=20200000 && sid<=20209999)
+           {}
+           else
+           {
+                alert("学号书写不规范！请重新填写");
+                $(this).val("");
+           }
+     })
+     $("#button").click(function(){
+         var sid=$("#sid").val();
+         var password=$("#password").val();
+         $.post("/stumanage/stusignin",{
+             "sid":sid ,
+             "password":password
+         },function(data){            
+             if(data==1)
+             {
+             $("#loginError2").attr({style:""});
+             }
+             else
+             {
+             $(location).attr("href","studentwelcome.html")
+             }
+         })
+     })
+     $("#man").click(function(){
+         $(location).attr("href","signin_manager.html")
+     })
+ }) 
+  </script>
+</head>
+<body style="">
+  <main role="main">
+    <div id="content">
+      <div id="vue_main" style="">
+        <div style="min-height: 850px; background: rgb(255, 255, 255); height: 850px;">
+          <div class="el-dialog__wrapper sw-dialog__wrapper" style="display: none;">
+            <div role="dialog" aria-modal="true" aria-label="公告" class="sw-dialog el-dialog"
+              style="margin-top: 0px; width: 500px;">
+              <div class="el-dialog__header"><span class="el-dialog__title">公告</span><button type="button"
+                  aria-label="Close" class="el-dialog__headerbtn"><i
+                    class="el-dialog__close el-icon el-icon-close"></i></button></div>
+            </div>
+          </div>
+          <div
+            style="width: 100%; position: absolute; top: 0px; height: 480px; background-image: url('./sourcefiles/topbg2.jpg');">
+          </div>
+          <div class="sw-login sw-cloud-platform-nwpu-login"
+            style="min-height: 850px; overflow: hidden; height: 850px; top: 0px;">
+            <div class="el-row" style="width: 100%; position: relative; max-width: 1920px; margin: 0px auto;">
+              <div class="el-row" style="margin: 50px 50px 32px; color: rgb(35, 103, 177); font-size: 33px;">
+                <img height="100px" src="./sourcefiles/logo.png" style="position: relative; top: 7px;">
+              </div>
+              <div class="el-row" style="height: 480px;">
+                <div
+                  style="width: 100%; position: relative; background: url('./sourcefiles/background1.jpg') left center / cover no-repeat; height: 480px;">
+                </div>
+                <div class="car-cover" style="top: 0px; transform: none;"></div>
+                <div style="width: 300px; height: 370px; z-index: 5; position: absolute; top: 50px; right: 0px;">
+                  <div class="sw-login-main" style="top: 0px; transform: none;">
+                    <div class="sw-login-main-content">
+                      <div class="card">
+                        <ul role="menubar" class="sw-login-menu el-menu--horizontal el-menu"
+                          style="background-color: rgba(255, 255, 255, 0);">
+                          <li role="menuitem" tabindex="0" class="el-menu-item is-active"
+                            style="color: rgb(51, 148, 225); border-bottom-color: rgb(51, 148, 225); background-color: rgba(255, 255, 255, 0); margin: 0px 20px;">
+                            学生登录</li>
+                          <li id="man" role="menuitem" tabindex="0" class="el-menu-item"
+                            style="color: rgb(102, 102, 102); border-bottom-color: transparent; background-color: rgba(255, 255, 255, 0); margin: 0px 0px 0px 20px;">
+                            管理员登录</li>
+                        </ul>
+                        <div>
+                          <form class="el-form" method="post" id="fm1"
+                            action="/stumanage/stusignin"
+                            style="margin: 20px;">
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 15px;">
+                              <div class="el-form-item__content">
+                                <div class="sw-input el-input el-input--default el-input--prefix sw-input--circular">
+                                  <div>
+                                      <!-- 学号 -->
+                                    <div><input placeholder="请输入学号" title="请输入用户名/手机/邮箱/证件号" id="sid"
+                                        size="25" tabindex="1" type="text" accesskey="n" autocomplete="off"
+                                        name="sid" value="" class="el-input__inner"></div>
+                                  </div> <span class="el-input__prefix"><i
+                                      class="su-input-icon black su-input-icon-prefix el-input__icon su-icon-people"></i></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 15px;">
+                              <div class="el-form-item__content">
+                                <div class="sw-input el-input el-input--defualt el-input--prefix sw-input--circular">
+                                   <!-- 密码 -->
+                                  <div><input placeholder="请输入登录密码" title="请输入登录密码" type="password" id="password"
+                                      size="25" tabindex="2" accesskey="p" autocomplete="off" name="password" value=""
+                                      class="el-input__inner"></div>
+                                       <span class="el-input__prefix">
+                                         <i class="su-input-icon black su-input-icon-prefix el-input__icon su-icon-lock"></i>
+                                        </span>
+                                  <span class="el-input__suffix"><span class="el-input__suffix-inner"
+                                      style="display: inline-block;"><i onclick="javascript: togglePassword(this);"
+                                        class="el-input__icon su-icon-hide el-input__clear"
+                                        style="line-height: 32px;"></i></span></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 10px;">
+                              <div class="el-form-item__content"><label id="rememberMe" class="el-checkbox"><span
+                                    class="el-checkbox__input"><span class="el-checkbox__inner"></span><input
+                                      type="checkbox" aria-hidden="false" name="rememberMe"
+                                      class="el-checkbox__original" value="true"></span><span
+                                    class="el-checkbox__label">记住我
+                                    </span></label> <a
+                                  href="#" target="_blank"
+                                  style="font-size: 14px; float: right; color: rgb(35, 103, 177); text-decoration-line: none;">忘记密码？</a>
+                              </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 10px;">
+                              <div class="el-form-item__content"><input type="hidden" name="currentMenu"
+                                  value="1"><input type="hidden" name="execution" value="e1s1"><input type="hidden"
+                                  name="_eventId" value="submit"><input type="hidden" name="geolocation"><input
+                                  name="button" id="button" accesskey="l" tabindex="6" type="button" value="登录"
+                                  class="el-button el-button--primary el-button--small is-round"
+                                  style="width: 100%; height: 40px; font-size: 16px;">
+                              </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 10px;">
+                              <div class="el-form-item__content">
+                                <div id="loginError2" style="display:none ;">
+                                  <div role="alert" class="el-alert el-alert--error is-light">
+                                    <div class="el-alert__content"><span class="el-alert__title"  id="msg">用户名或密码错误。</span>
+                                     <i class="el-alert__closebtn el-icon-close" style="display: none;"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div style="margin: 10px 20px;">
+                      </div>
+                      <div style="margin: 10px 20px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="el-row" style="margin: 30px 50px; color: rgb(35, 103, 177);">
+                <div class="el-row">
+                </div>
+                <div class="el-row" style="color: rgba(2, 21, 37, 0.65); font-size: 12px;">
+                  <div>
+                    <p class="information" style="margin-bottom: 10px;">
+                    </p>
+                    <p>版本号：v 1.0.0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

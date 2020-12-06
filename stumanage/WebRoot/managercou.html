@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选课管理系统</title>
+<link rel="icon"
+	href="https://uis.nwpu.edu.cn/cas/themes/nwpu/favicon.ico"
+	type="image/x-icon">
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./chajian/dialog.css" />
+<script src="./js/jquery-2.1.4.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script src="./chajian/dialog.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		//按id查找
+		$("#idbutton").click(function() {
+			var id = $("#id").val();
+			$.post("/stumanage/managercou1", {
+				"id" : id
+			}, function(data) {
+				var stuscore = eval(data);
+				$("#table").html("");
+				for (var i = 0; i < stuscore.length; i++) {
+					var tr = $("<tr></tr>");
+					tr.addClass("active");
+					var td1 = $("<td></td>");
+					td1.append(stuscore[i].sid);
+					var td2 = $("<td></td>");
+					td2.append(stuscore[i].sname);
+					var td3 = $("<td></td>");
+					td3.append(stuscore[i].smajor);
+					var td4 = $("<td></td>");
+					td4.append(stuscore[i].mscore);
+					var td5 = $("<td></td>");
+					var a = $("<a href='javascript:void(0)'>删除</a>");
+                    a.click(function(){
+                           var parent1 = $(this).parent("td");
+                           var mscore = parent1.prev("td");
+							var smajor = mscore.prev("td");
+							var sname = smajor.prev("td");
+							var sid = sname.prev("td");
+							var couid=$("#id").val().trim();
+							if( couid==null || couid=="" )
+							{
+							alert("从课程中删除学生时，课程id框不能为空");
+							return
+							}
+							alert(couid+" "+sid.html());
+							$.post("/stumanage/managercoudelete1", {
+							"deletesid" : sid.html(),
+							"couid":couid
+						}, function(data) {
+							alert(data);
+						});
+                    });
+					td5.append(a);
+					var td6 = $("<td></td>");
+					var a1 = $("<a href='javascript:void(0)'>修改成绩</a>");
+					a1.dialog({
+							id : stuscore[i].sid, 
+							title : "修改成绩",
+							type : 0, 
+							form : [ {
+								description : "学生学号",
+								type : "text",
+								name : "sid",
+								value : stuscore[i].sid
+							},{
+							    description : "score",
+								type : "text",
+								name : "score",
+								value : ""
+							}], 
+							submit : function(data) {
+								console.log(data);						
+							    var cid=$("#id").val().trim();
+							    if( cid==null || cid=="" )
+							    {
+							      alert("从课程中删除学生时，课程id框不能为空");
+							       return
+							    }
+								$.post("/stumanage/managercoumodify", {
+								"sid" : data.sid,
+								"cid":cid,
+								"score":data.score
+								}, function(data) {
+									alert(data);
+								});
+							}
+						});
+					td6.append(a1);
+					tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+					$("#table").append(tr);
+				}
+               alert("共"+stuscore.length+"条记录");
+			}, "json");
+		});
+		$("#namebutton").click(function() {
+							var name=$("#name").val();
+							$.post("/stumanage/managercou2", {
+								"name" : name
+							}, function(data) {
+								var stuscore = eval(data);
+								$("#table").html("");
+								for (var i = 0; i < stuscore.length; i++) {
+									var tr = $("<tr></tr>");
+									tr.addClass("active");
+									var td1 = $("<td></td>");
+									td1.append(stuscore[i].sid);
+									var td2 = $("<td></td>");
+									td2.append(stuscore[i].sname);
+									var td3 = $("<td></td>");
+									td3.append(stuscore[i].smajor);
+									var td4 = $("<td></td>");
+									td4.append(stuscore[i].mscore);
+									var td5 = $("<td></td>");
+									var a = $("<a href='javascript:void(0)'>删除</a>");
+				                    a.click(function(){
+				                           var parent1 = $(this).parent("td");
+				                           var mscore = parent1.prev("td");
+											var smajor = mscore.prev("td");
+											var sname = smajor.prev("td");
+											var sid = sname.prev("td");
+											var couname=$("#name").val().trim();
+											if( couname==null || couname=="" )
+											{
+											alert("从课程中删除学生时，课程名框不能为空");
+											return
+											}
+											alert(couname+" "+sid.html());
+											$.post("/stumanage/managercoudelete2", {
+											"deletesid" : sid.html(),
+											"couname":couname
+										}, function(data) {
+											alert(data);
+										});
+				                    });
+									td5.append(a);
+									var td6 = $("<td></td>");
+									var a1 = $("<a href='javascript:void(0)'>修改成绩</a>");
+									a1.dialog({
+											id : stuscore[i].sid, 
+											title : "修改成绩", 
+											type : 0, 
+											form : [ {
+												description : "学生学号",
+												type : "text",
+												name : "stuid",
+												value : stuscore[i].sid
+											},{
+											    description : "score",
+												type : "text",
+												name : "stuscore",
+												value : ""
+											
+											}], 
+											submit : function(data) {
+												console.log(data);
+											    var cname=$("#name").val().trim();
+											    if( cname==null || cname=="" )
+											    {
+											      alert("从课程中删除学生时，课程名框不能为空");
+											       return
+											    }
+												alert(cname+" "+data.stuid+" "+data.stuscore);
+												$.post("/stumanage/managercoumodify2", {
+												"sid" : data.stuid,
+												"cname":cname,
+												"score":data.stuscore
+												}, function(data) {
+													alert(data);
+												});
+											}
+										});
+									td6.append(a1);
+									tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+									$("#table").append(tr);
+								}
+				                  alert("共"+stuscore.length+"条记录");
+							}, "json");
+		});		
+	})
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="">学生选课管理系统</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="signin_student.html">管理员登录</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" class="navbar-nav">当前用户:</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid" style="border: aqua 1px; ">
+		<div class="col-lg-2"
+			style="border:turquoise ;background-color: rgb(248, 248, 248);">
+			<div class="list-group">
+				<a href="#" class="list-group-item active"> 操作列表 </a> <a
+					href="managerwelcome.html" class="list-group-item">首页</a> <a
+					href="manageradmin.html" class="list-group-item">管理员信息</a> <a
+					href="managerstu.html" class="list-group-item">学生查询</a> <a
+					href="managercou.html" class="list-group-item">查询某课内学生</a> <a
+					href="manageradd.html" class="list-group-item">添加学生</a> <a href="#"
+					class="list-group-item">设置</a> <a href="#" class="list-group-item">保留</a>
+			</div>
+			<div style="height:30pc"></div>
+		</div>
+		<div class="col-lg-10">
+			<div class="row">
+				<nav class="navbar">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">课程选课名单及成绩</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div style="height: 5pc;">
+				<div style="border: aquamarine  ;height:5pc ;">
+					<div class="col-lg-4">
+						<input type="text" id="id" name="id" placeholder="课程号"> <input
+							type="button" id="idbutton" value="课程号查找">
+					</div>
+					<div class="col-lg-4">
+						<input type="text" id="name" name="name" placeholder="课程名">
+						<input type="button" id="namebutton" value="课程名查找">
+					</div>
+					<div class="col-lg-4">
+						<input type="button" id="openDialog" value="添加学生">
+						<script src="./chajian/dialog.min.js" type="text/javascript" charset="utf-8"></script>
+						<script type="text/javascript">
+						$("#openDialog").dialog({
+							id : "superDialog", //必填,必须和已有id不同
+							title : "课程添加学生", //对话框的标题 默认值: 我的标题
+							type : 0, //0 对话框有确认按钮和取消按钮 1 对话框只有关闭按钮
+							form : [ {
+								description : "课程ID",
+								type : "text",
+								name : "courseid",
+								value : ""
+							}, {
+								description : "学生ID",
+								type : "text",
+								name : "studentid",
+								value : ""
+							} ], //form 是填充表单的数据,必填
+							submit : function(data) {
+								//data是表单收集的数据
+								console.log(data);
+					            $.post("/stumanage/managercouadd",{"courseid":data.courseid,"studentid":data.studentid},function(data){
+					                  alert(data);
+					            })
+							}
+						})
+					</script>
+					</div>	
+				</div>
+			</div>
+			<table class="table table-bordered">
+				<tr class="active">
+					<td>学号</td>
+					<td>姓名</td>
+					<td>专业</td>
+					<td>成绩</td>
+					<td>删除</td>
+					<td>修改成绩</td>
+				</tr>
+			</table>
+			<div
+				style="background-color:rgb(248, 248, 248);height: 42pc; overflow:auto">
+				<table id="table" class="table table-bordered">
+					
+					<tr class="active">
+						<td>学号</td>
+						<td>姓名</td>
+						<td>专业</td>
+						<td>成绩</td>
+						<td><a href="#">删除</a></td>
+						<td><a href="#">修改成绩</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</body>
+</html>
